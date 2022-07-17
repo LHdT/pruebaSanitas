@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import es.sanitas.prueba.lht.calculadora.functional.FunctionalOperator;
 import es.sanitas.prueba.lht.calculadora.service.CalculatorService;
+import es.sanitas.prueba.lht.calculadora.exception.MethodNotAllowedException;
 
 @Service
 public class CalculatorServiceImpl implements CalculatorService {
@@ -26,10 +27,8 @@ public class CalculatorServiceImpl implements CalculatorService {
 		case "resta":
 			operator = (op1, op2) -> op1.subtract(op2);
 			break;
-
 		default:
-			// TODO here I Should propagate an exception
-			break;
+			throw new MethodNotAllowedException();
 		}
 		return operator;
 	}
