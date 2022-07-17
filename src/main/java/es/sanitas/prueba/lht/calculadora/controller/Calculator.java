@@ -9,17 +9,19 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.sanitas.prueba.lht.calculadora.service.CalculatorService;
-import lombok.RequiredArgsConstructor;
 
 @RestController("api/v1")
-@RequiredArgsConstructor
 public class Calculator {
 	
 	private final CalculatorService calculatorService;
+	
+	public Calculator(CalculatorService calculatorService) {
+		this.calculatorService=calculatorService;
+	}
 
 	@GetMapping("calculadora/{operation}")
 	@ResponseStatus(HttpStatus.OK)
 	public BigDecimal operate(BigDecimal o1,BigDecimal o2,@PathVariable("operation") String operation) {
-		return null;
+		return calculatorService.operate(o1, o2, operation);
 	}
 }
