@@ -1,0 +1,37 @@
+package es.sanitas.prueba.lht.calculadora.service.impl;
+
+import java.math.BigDecimal;
+
+import org.springframework.stereotype.Service;
+
+import es.sanitas.prueba.lht.calculadora.functional.FunctionalOperator;
+import es.sanitas.prueba.lht.calculadora.service.CalculatorService;
+
+@Service
+public class CalculatorServiceImpl implements CalculatorService {
+
+	@Override
+	public BigDecimal operate(BigDecimal o1, BigDecimal o2, String operation) {
+		FunctionalOperator operator = extracted(operation);
+
+		return operator.operate(o1, o2);
+	}
+
+	private FunctionalOperator extracted(String operation) {
+		FunctionalOperator operator = null;
+		switch (operation) {
+		case "suma":
+			operator = (op1, op2) -> op1.add(op2);
+			break;
+		case "resta":
+			operator = (op1, op2) -> op1.subtract(op2);
+			break;
+
+		default:
+			// TODO here I Should propagate an exception
+			break;
+		}
+		return operator;
+	}
+
+}
