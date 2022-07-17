@@ -16,12 +16,24 @@ import es.sanitas.prueba.lht.calculadora.service.CalculatorService;
 @RequestMapping("/api/v1")
 public class Calculator {
 	
+//	injected property
 	private final CalculatorService calculatorService;
 	
+	/**
+	 * dependency injection by constructor
+	 * @param calculatorService
+	 */
 	public Calculator(CalculatorService calculatorService) {
 		this.calculatorService=calculatorService;
 	}
 
+	/**
+	 * Endpoint to execute calculator
+	 * @param o1 operand 1
+	 * @param o2 operand 2
+	 * @param operation type of operation
+	 * @return it returns the result of the operation
+	 */
 	@GetMapping("/calculadora/{operation}")
 	@ResponseStatus(HttpStatus.OK)
 	public BigDecimal operate(@RequestParam("p1") BigDecimal o1,@RequestParam("p2")BigDecimal o2,@PathVariable("operation") String operation) {
