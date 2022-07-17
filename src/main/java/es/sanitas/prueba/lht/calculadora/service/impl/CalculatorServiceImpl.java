@@ -6,18 +6,19 @@ import org.springframework.stereotype.Service;
 
 import es.sanitas.prueba.lht.calculadora.functional.FunctionalOperator;
 import es.sanitas.prueba.lht.calculadora.service.CalculatorService;
+import es.sanitas.prueba.lht.calculadora.exception.MethodNotAllowedException;
 
 @Service
 public class CalculatorServiceImpl implements CalculatorService {
 
 	@Override
 	public BigDecimal operate(BigDecimal o1, BigDecimal o2, String operation) {
-		FunctionalOperator operator = extracted(operation);
+		FunctionalOperator operator = getOperator(operation);
 
 		return operator.operate(o1, o2);
 	}
 
-	private FunctionalOperator extracted(String operation) {
+	private static FunctionalOperator getOperator(String operation) {
 		FunctionalOperator operator = null;
 		switch (operation) {
 		case "suma":
@@ -26,10 +27,8 @@ public class CalculatorServiceImpl implements CalculatorService {
 		case "resta":
 			operator = (op1, op2) -> op1.subtract(op2);
 			break;
-
 		default:
-			// TODO here I Should propagate an exception
-			break;
+			throw new MethodNotAllowedException();
 		}
 		return operator;
 	}
