@@ -8,9 +8,17 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
+/**
+ * Configuration class needed to enable ope api standard
+ * @author luish
+ *
+ */
 @Configuration
 public class SpringFoxConfig {
-
+	/**
+	 * bean to configure swagger
+	 * @return
+	 */
 	@Bean
     Docket api() { 
         return new Docket(DocumentationType.SWAGGER_2)  
