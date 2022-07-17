@@ -12,12 +12,12 @@ public class CalculatorServiceImpl implements CalculatorService {
 
 	@Override
 	public BigDecimal operate(BigDecimal o1, BigDecimal o2, String operation) {
-		FunctionalOperator operator = extracted(operation);
+		FunctionalOperator operator = getOperator(operation);
 
 		return operator.operate(o1, o2);
 	}
 
-	private FunctionalOperator extracted(String operation) {
+	private static FunctionalOperator getOperator(String operation) {
 		FunctionalOperator operator = null;
 		switch (operation) {
 		case "suma":
